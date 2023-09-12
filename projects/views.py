@@ -1,26 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Project
-
-ProjectsList = [
-    {
-        'id':'1',
-        'title':"Ecommerce Website",
-        'description':'Fully functional ecommerce website'
-    },
-    {
-        'id':'2',
-        'title':"Portfolia Website",
-        'description':'This was a project where I built out my portfolia'
-
-    },
-    {
-        'id':'3',
-        'title':"Social Network",
-        'description':'Awesome open source project I am still working'
-    },
-]
-
+from .forms import ProjectForm
 
 
 def projects(request):
@@ -31,5 +12,10 @@ def projects(request):
 def project(request, pk):
     projectObj = Project.objects.get(id=pk)
     return render(request, 'projects/single-project.html', {'project':projectObj})
+
+def createProject(request):
+    form = ProjectForm()
+    context = {'form': form}
+    return render(request, "projects/project_form.html", context)
 
 
